@@ -23,10 +23,10 @@ function SidebarNavLink({
     <Link
       href={href}
       className={clsx(
-        "flex items-center rounded-[18px] border px-4 py-3 text-sm font-medium transition",
+        "neo-focus flex items-center rounded-[10px] border-[2px] px-4 py-3 text-sm font-bold transition",
         active
-          ? "border-[var(--accent)] bg-[color:var(--surface-contrast)] text-[var(--accent-strong)]"
-          : "border-transparent text-muted hover:border-[var(--line)] hover:bg-[color:var(--surface)] hover:text-[var(--text)]",
+          ? "border-[var(--line-strong)] bg-[color:var(--accent)] text-white shadow-[4px_4px_0_0_var(--line-strong)]"
+          : "border-[var(--line)] bg-[color:var(--surface)] text-muted shadow-[4px_4px_0_0_var(--line)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-[var(--text)]",
         collapsed && "justify-center px-3",
       )}
     >
@@ -37,7 +37,7 @@ function SidebarNavLink({
 
 function SidebarSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="glass-panel rounded-[24px] p-4">
+    <section className="neo-card p-4">
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-soft">{title}</p>
       {children}
     </section>
@@ -64,19 +64,19 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-[1560px] gap-4">
         <aside
           className={clsx(
-            "glass-panel-strong hidden shrink-0 rounded-[30px] p-4 md:flex md:flex-col md:gap-4",
+            "glass-panel-strong hidden shrink-0 p-4 md:flex md:flex-col md:gap-4",
             viewState.sidebarCollapsed ? "md:w-[92px]" : "md:w-[308px]",
           )}
         >
-          <div className="flex items-center justify-between gap-3 rounded-[24px] bg-[color:var(--surface-contrast)] px-4 py-4">
+          <div className="neo-inset flex items-center justify-between gap-3 px-4 py-4">
             <div className={clsx("transition", viewState.sidebarCollapsed && "hidden")}>
-              <p className="text-xs uppercase tracking-[0.24em] text-soft">{strings.summary}</p>
+              <p className="text-xs uppercase tracking-[0.24em] text-muted">{strings.summary}</p>
               <h1 className="text-lg">{strings.appName}</h1>
             </div>
             <button
               type="button"
               onClick={toggleSidebar}
-              className="rounded-full border border-[var(--line)] bg-[color:var(--surface)] px-3 py-2 text-sm text-muted transition hover:text-[var(--text)]"
+              className="neo-button neo-focus min-w-10 px-3 py-2 text-sm text-muted"
               aria-label={strings.toggleSidebar}
             >
               {viewState.sidebarCollapsed ? ">" : "<"}
@@ -100,13 +100,13 @@ export function AppShell({ children }: { children: ReactNode }) {
               <SidebarSection title={strings.roster}>
                 <div className="space-y-3">
                   {derived?.agentRosterDisplay.map((agent) => (
-                    <div key={agent.id} className="flex items-center gap-3 rounded-[18px] bg-[color:var(--surface)] px-3 py-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--surface-contrast)] text-sm font-semibold">
+                    <div key={agent.id} className="neo-inset flex items-center gap-3 px-3 py-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-[10px] border-[2px] border-[var(--line)] bg-[color:var(--surface-raised)] text-sm font-extrabold">
                         {agent.initials}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium">{agent.displayName}</p>
-                        <p className="text-xs text-muted">
+                        <p className="text-xs text-[color:var(--text-muted)]">
                           {agent.roleLabel} · {agent.activeTaskCount} {strings.open}
                         </p>
                       </div>
@@ -123,14 +123,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
               <SidebarSection title={strings.systemStatus}>
                 <p className="text-sm font-medium">{payload?.systemStatus.label}</p>
-                <p className="mt-2 text-xs text-muted">{strings.serverState}: {payload?.systemStatus.server ?? strings.loading}</p>
+                <p className="mt-2 text-xs text-[color:var(--text-muted)]">{strings.serverState}: {payload?.systemStatus.server ?? strings.loading}</p>
               </SidebarSection>
 
               <SidebarSection title={strings.account}>
                 <div className="space-y-1">
                   <p className="text-sm font-medium">{payload?.userProfile.displayName}</p>
-                  <p className="text-sm text-muted">{payload?.userProfile.plan}</p>
-                  <p className="text-xs text-soft">{payload?.userProfile.email}</p>
+                  <p className="text-sm text-[color:var(--text-muted)]">{payload?.userProfile.plan}</p>
+                  <p className="text-xs text-muted">{payload?.userProfile.email}</p>
                 </div>
               </SidebarSection>
             </>
@@ -138,18 +138,18 @@ export function AppShell({ children }: { children: ReactNode }) {
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col gap-4">
-          <header className="glass-panel-strong rounded-[30px] px-4 py-4 md:px-6">
+          <header className="glass-panel-strong px-4 py-4 md:px-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
                 <div className="grid gap-3 md:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))]">
-                  <label className="glass-panel flex items-center gap-3 rounded-[20px] px-4 py-3">
-                    <span className="text-soft">/</span>
+                  <label className="neo-card neo-focus flex items-center gap-3 px-4 py-3">
+                    <span className="text-muted">/</span>
                     <input
                       aria-label="Search tasks"
                       value={viewState.searchQuery}
                       onChange={(event) => setSearchQuery(event.target.value)}
                       placeholder={strings.searchPlaceholder}
-                      className="w-full bg-transparent text-sm outline-none placeholder:text-soft"
+                      className="w-full bg-transparent text-sm text-[color:var(--text)] outline-none placeholder:text-muted"
                     />
                   </label>
 
@@ -157,7 +157,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     aria-label="Agent filter"
                     value={viewState.filters.agentId}
                     onChange={(event) => setAgentFilter(event.target.value)}
-                    className="glass-panel rounded-[20px] px-4 py-3 text-sm outline-none"
+                    className="neo-card neo-focus px-4 py-3 text-sm text-[color:var(--text)] outline-none"
                   >
                     <option value="all">{strings.allAgents}</option>
                     {payload?.agents.map((agent) => (
@@ -171,7 +171,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     aria-label="Priority filter"
                     value={viewState.filters.priority}
                     onChange={(event) => setPriorityFilter(event.target.value as typeof viewState.filters.priority)}
-                    className="glass-panel rounded-[20px] px-4 py-3 text-sm outline-none"
+                    className="neo-card neo-focus px-4 py-3 text-sm text-[color:var(--text)] outline-none"
                   >
                     <option value="all">{strings.allPriorities}</option>
                     <option value="low">{strings.low}</option>
@@ -180,7 +180,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     <option value="urgent">{strings.urgent}</option>
                   </select>
 
-                  <div className="glass-panel flex items-center gap-2 rounded-[20px] px-3 py-2">
+                  <div className="neo-card flex items-center gap-2 px-3 py-2">
                     {(payload?.availableTags ?? []).slice(0, 3).map((tag) => {
                       const active = viewState.filters.tagIds.includes(tag.id);
 
@@ -190,10 +190,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                           type="button"
                           onClick={() => toggleTagFilter(tag.id)}
                           className={clsx(
-                            "rounded-full px-3 py-2 text-xs transition",
+                            "neo-focus px-3 py-2 text-xs transition",
                             active
-                              ? "bg-[color:var(--accent)] text-white"
-                              : "bg-[color:var(--surface-contrast)] text-muted hover:text-[var(--text)]",
+                              ? "neo-chip-active"
+                              : "neo-chip hover:text-[var(--text)]",
                           )}
                         >
                           {tag.label}
@@ -207,10 +207,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       type="button"
                       onClick={() => setViewMode("board")}
                       className={clsx(
-                        "rounded-[20px] px-4 py-3 text-sm transition",
+                        "neo-focus px-4 py-3 text-sm transition",
                         viewState.viewMode === "board"
-                          ? "bg-[color:var(--accent)] text-white"
-                          : "glass-panel text-muted hover:text-[var(--text)]",
+                          ? "neo-button neo-button-primary"
+                          : "neo-button text-muted",
                       )}
                     >
                       {strings.board}
@@ -219,10 +219,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       type="button"
                       onClick={() => setViewMode("list")}
                       className={clsx(
-                        "rounded-[20px] px-4 py-3 text-sm transition",
+                        "neo-focus px-4 py-3 text-sm transition",
                         viewState.viewMode === "list"
-                          ? "bg-[color:var(--accent)] text-white"
-                          : "glass-panel text-muted hover:text-[var(--text)]",
+                          ? "neo-button neo-button-primary"
+                          : "neo-button text-muted",
                       )}
                     >
                       {strings.list}
@@ -235,7 +235,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     aria-label="Theme mode"
                     value={viewState.themeMode}
                     onChange={(event) => setThemeMode(event.target.value as typeof viewState.themeMode)}
-                    className="glass-panel rounded-[20px] px-4 py-3 text-sm outline-none"
+                    className="neo-card neo-focus px-4 py-3 text-sm text-[color:var(--text)] outline-none"
                   >
                     <option value="system">{strings.theme}: {strings.system}</option>
                     <option value="light">{strings.theme}: {strings.light}</option>
@@ -246,7 +246,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     aria-label="Locale"
                     value={viewState.locale}
                     onChange={(event) => setLocale(event.target.value as typeof viewState.locale)}
-                    className="glass-panel rounded-[20px] px-4 py-3 text-sm outline-none"
+                    className="neo-card neo-focus px-4 py-3 text-sm text-[color:var(--text)] outline-none"
                   >
                     <option value="en">{strings.english}</option>
                     <option value="vi">{strings.vietnamese}</option>
@@ -255,7 +255,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <button
                     type="button"
                     onClick={openCreateTask}
-                    className="rounded-[20px] bg-[color:var(--accent-strong)] px-5 py-3 text-sm font-medium text-white transition hover:opacity-90"
+                    className="neo-button neo-button-primary neo-focus px-5 py-3 text-sm"
                   >
                     {strings.newTask}
                   </button>
