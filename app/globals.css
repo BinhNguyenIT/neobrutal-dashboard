@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #171717;
+  --bg-muted: #212121;
+  --panel: #f4efe2;
+  --panel-muted: #ddd3be;
+  --ink: #101010;
+  --ink-inverse: #f7f4ed;
+  --line: #0f0f0f;
+  --accent: #f97316;
+  --accent-2: #22c55e;
+  --accent-3: #38bdf8;
+  --accent-4: #facc15;
+  --danger: #ef4444;
+  --shadow: 6px 6px 0 0 #000000;
+  --radius-panel: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: radial-gradient(circle at top, #2b2a28 0%, #171717 55%, #101010 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink-inverse);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(249, 115, 22, 0.13), transparent 24%),
+    radial-gradient(circle at 85% 0%, rgba(56, 189, 248, 0.12), transparent 22%),
+    linear-gradient(180deg, #202020 0%, #141414 100%);
+  font-family: "Trebuchet MS", "Arial Narrow", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--accent-4);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-muted: var(--bg-muted);
+  --color-panel: var(--panel);
+  --color-panel-muted: var(--panel-muted);
+  --color-ink: var(--ink);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-4: var(--accent-4);
+  --color-danger: var(--danger);
+  --shadow-brutal: var(--shadow);
+  --radius-brutal: var(--radius-panel);
+}
